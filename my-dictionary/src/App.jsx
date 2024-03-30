@@ -4,13 +4,15 @@ function App() {
   const [word, setWord] = useState('');
   const [definitions, setDefinitions] = useState([]);
     
-  useEffect(()=>{
+  // useEffect(()=>{
   async function fetchDefinition() {
     try {
-      const response = await fetch(`https://api.urbandictionary.com/v0/define?term=${word}`);
+      const response = await fetch(`https://api.urbandictionary.com/v0/define?ter=${word}`);
       if (!response.ok) {
         throw new Error('Failed to load data');
+        console.log(response.ok)
       }
+      
       const data = await response.json();
       setDefinitions(data.list);
     } catch (error) {
@@ -19,8 +21,8 @@ function App() {
     }
     console.log(word.list)
   }
-  fetchDefinition();
- }, [word]);
+  // fetchDefinition();
+//  }, [word]);
 
   return (
     <div>
@@ -29,7 +31,7 @@ function App() {
         value={word}
         onChange={(e) => setWord(e.target.value)}
       />
-      <button >Search</button>
+      <button onClick={fetchDefinition} >Search</button>
       <ul>
         {definitions.map((definition, index) => (
           <li key={index}>{definition.definition}</li>
